@@ -1,9 +1,17 @@
 package com.example.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.dataobject.PrintDO;
@@ -14,6 +22,9 @@ import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationRe
 
 @Controller
 public class Greeting {
+	
+	private static final String WATSON_LANG_TRANSLATOR_USERNAME = "91e22795-dcdb-491d-aea8-9f9f2479f384";
+	private static final String WATSON_LANG_TRANSLATOR_PASSWORD = "xv3KLBhY54bv";
 
 	@Autowired
 	private DBService objDBService;
@@ -25,21 +36,26 @@ public class Greeting {
 		return obj;
 	}
 
-	@RequestMapping("/sachtranslate/{languagename}/{text}")
+	@RequestMapping(value = "/salesLanguageTranslator", method = RequestMethod.POST, produces = {
+			"application/json" }, consumes = { "application/json" })
 	@ResponseBody
-	public String sachtranslate(@PathVariable String text, @PathVariable String languagename) {
-		
-		System.out.println("Text received is: " + text);
-		String outText = translateToSpanish(text, languagename);
-		System.out.println("Text translated is: " + outText);
-		return outText;
-	}
+	public ResponseEntity<Map<String, Object>> updateServicesFeatures(@RequestBody Map<String, Object> paramValues,
+			HttpServletRequest request) {
+		Map<String, Object> returnValues = new HashMap<String, Object>();
 
-	private String translateToSpanish(String text, String languagename) {
+		String fromLanguage = (String) paramValues.get("fromLanguage");
+		String toLanguage = (String) paramValues.get("toLanguage");
+		String textToTranslate = (String) paramValues.get("text");
 
+		//returnValues.put("outputText", textToTranslate);
 		LanguageTranslator service = new LanguageTranslator();
-		service.setUsernameAndPassword("44a75538-ab18-4f56-acc1-e2d27d8ab6db", "yNaUTJUOkYrL");
-		TranslationResult translationResult = service.translate(text, Language.ENGLISH, Language.valueOf(languagename)).execute();
-		return translationResult.getFirstTranslation();
+		service.setUsernameAndPassword(WATSON_LANG_TRANSLATOR_USERNAME, WATSON_LANG_TRANSLATOR_PASSWORD);
+		TranslationResult translationResult = service
+				.translate(textToTranslate, Language.valueOf(fromLanguage), Language.valueOf(toLanguage)).execute();
+
+		returnValues.put("outputText", translationResult.getFirstTranslation());
+
+		return new ResponseEntity<Map<String, Object>>(returnValues, HttpStatus.OK);
+
 	}
 }
