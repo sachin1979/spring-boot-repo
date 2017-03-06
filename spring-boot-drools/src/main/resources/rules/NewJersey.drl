@@ -1,0 +1,34 @@
+// created on: Mar 06, 2017
+package droolsexample
+
+// list any import classes here.
+import java.math.BigDecimal;
+
+import de.jonashackt.springdrools.internalmodel.ItemCity;
+import de.jonashackt.springdrools.internalmodel.HelloCity;
+
+// declare any global variables here
+dialect "java"
+
+rule "New Jersey Medicine Item"
+   
+   when
+      item : ItemCity (purchaseCity == ItemCity.City.NEW_JERSEY,
+                       typeofItem == ItemCity.Type.MEDICINES)
+   
+   then
+      BigDecimal tax = new BigDecimal(0.0);
+      item.setLocalTax(tax.multiply(item.getSellPrice()));
+      HelloCity.writeHello(item.getPurchaseCity().toString());
+end
+
+rule "New Jersey Groceries Item"
+   
+   when
+      item : ItemCity(purchaseCity == ItemCity.City.NEW_JERSEY,
+                      typeofItem == ItemCity.Type.GROCERIES)
+   
+   then
+      BigDecimal tax = new BigDecimal(2.0);
+      item.setLocalTax(tax.multiply(item.getSellPrice())); 
+end
