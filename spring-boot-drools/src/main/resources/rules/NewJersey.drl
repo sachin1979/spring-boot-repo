@@ -4,8 +4,8 @@ package droolsexample
 // list any import classes here.
 import java.math.BigDecimal;
 
-import de.jonashackt.springdrools.internalmodel.ItemCity;
-import de.jonashackt.springdrools.internalmodel.HelloCity;
+import com.sachin.springdrools.internalmodel.ItemCity;
+import com.sachin.springdrools.internalmodel.HelloCity;
 
 // declare any global variables here
 dialect "java"

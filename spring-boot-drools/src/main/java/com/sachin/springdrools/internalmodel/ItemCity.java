@@ -1,4 +1,4 @@
-package de.jonashackt.springdrools.internalmodel;
+package com.sachin.springdrools.internalmodel;
 
 import java.math.BigDecimal;
 

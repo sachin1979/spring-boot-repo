@@ -1,4 +1,4 @@
-package de.jonashackt.springdrools.internalmodel;
+package com.sachin.springdrools.internalmodel;
 
 public class HelloCity {
 	public static void writeHello(String name) {

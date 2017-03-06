@@ -1,4 +1,4 @@
-package de.jonashackt.springdrools;
+package com.sachin.springdrools;
 
 import java.math.BigDecimal;
 
@@ -8,9 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import de.jonashackt.springdrools.internalmodel.ItemCity;
-import de.jonashackt.springdrools.internalmodel.ItemCity.City;
-import de.jonashackt.springdrools.internalmodel.ItemCity.Type;
+import com.sachin.springdrools.internalmodel.ItemCity;
+import com.sachin.springdrools.internalmodel.ItemCity.City;
+import com.sachin.springdrools.internalmodel.ItemCity.Type;
 
 @SpringBootApplication
 public class SpringdroolsApplication implements CommandLineRunner {

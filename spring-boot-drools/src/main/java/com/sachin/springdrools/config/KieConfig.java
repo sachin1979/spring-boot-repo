@@ -1,3 +1,4 @@
+package com.sachin.springdrools.config;
 /*package de.jonashackt.springdrools.config;
 
 import org.kie.api.io.ResourceType;

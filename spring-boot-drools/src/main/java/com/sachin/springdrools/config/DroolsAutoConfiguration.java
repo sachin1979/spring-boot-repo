@@ -1,4 +1,4 @@
-package de.jonashackt.springdrools.config;
+package com.sachin.springdrools.config;
 
 import java.io.IOException;
 
